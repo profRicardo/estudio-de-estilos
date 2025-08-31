@@ -138,7 +138,19 @@ const PolaroidCard: React.FC<PolaroidCardProps> = ({ imageUrl, caption, status, 
         <div className="bg-neutral-100 dark:bg-neutral-100 !p-4 !pb-16 flex flex-col items-center justify-start aspect-[3/4] w-80 max-w-full rounded-md shadow-lg relative">
              <div className="w-full bg-neutral-900 shadow-inner flex-grow relative overflow-hidden group">
                 {status === 'pending' && <LoadingSpinner />}
-                {status === 'error' && <ErrorDisplay onRegenerate={onRegenerate} caption={caption}/>}
+               {status === 'error' && (
+  <div className="relative w-full h-full">
+    {imageUrl && (
+      <img
+        src={imageUrl}
+        alt={caption}
+        className="w-full h-full object-cover"
+      />
+    )}
+    <ErrorDisplay onRegenerate={onRegenerate} caption={caption} />
+  </div>
+)}
+
                 {status === 'done' && imageUrl && (
                     <>
                         <div className="absolute top-2 right-2 z-20 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
